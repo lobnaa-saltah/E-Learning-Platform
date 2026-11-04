@@ -1,0 +1,247 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #4F547B;
+  --color-secondary: #EFB144;
+  --color-purple-dark: #262262;
+
+  --color-background: #F5F7FE;
+  --color-surface: #FFFFFF;
+  --color-surface-muted: #F8F9FA;
+
+  --color-text: #000000;
+  --color-text-light: #4F547B;
+
+  --color-orange: #FFA51A;
+  --color-gold: #F2BB53;
+  --color-danger: #FB5F5F;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #E5BE78 #FAF4E4;
+  }
+  *, ::before, ::after {
+    border-color: #E2E8F0;
+    box-sizing: border-box;
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  html, body, button, input, textarea, select {
+    font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    overflow-x: hidden;
+  }
+}
+
+.font-mono, [class*="font-mono"] {
+  font-family: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF4E4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #E5BE78;
+  border-radius: 9999px;
+  border: 2px solid #FAF4E4;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4A755;
+}
+
+::-webkit-scrollbar-button {
+  background: #FAF4E4;
+  height: 12px;
+  width: 8px;
+}
+
+.sidebar-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #B4AED8 #F4F1FA;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-track {
+  background: #F4F1FA;
+  border-radius: 9999px;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb {
+  background: #B4AED8;
+  border-radius: 9999px;
+  border: 2px solid #F4F1FA;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #958EBF;
+}
+
+.sidebar-scrollbar::-webkit-scrollbar-button {
+  background: #F4F1FA;
+  height: 12px;
+  width: 8px;
+}
+
+.custom-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.custom-dark-glass {
+  background: rgba(38, 34, 98, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+@keyframes sheen-topleft-to-bottomright {
+  0% {
+    transform: translate(-65%, -65%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(65%, 65%);
+    opacity: 0;
+  }
+}
+
+.card-sheen-down {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    135deg,
+    transparent 43%,
+    rgba(255, 255, 255, 0.25) 47%,
+    rgba(255, 255, 255, 0.95) 50%,
+    rgba(255, 255, 255, 0.25) 53%,
+    transparent 57%
+  );
+  transform: translate(-65%, -65%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.group:hover .card-sheen-down {
+  animation: sheen-topleft-to-bottomright 1000ms cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.custom-cursor-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.custom-cursor-container[data-visible="true"] {
+  opacity: 1 !important;
+}
+
+.custom-cursor-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.custom-cursor-head {
+  --s: 8px;
+  width: var(--s);
+  height: var(--s);
+  margin: calc(var(--s) / -2) 0 0 calc(var(--s) / -2);
+  background: #EFB144;
+  box-shadow: 0 0 12px 2px #EFB144;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1), margin 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-cursor-container[data-hover="true"] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.custom-cursor-container[data-hover="true"] .custom-cursor-head,
+.custom-cursor-container[data-hover="true"] .custom-cursor-canvas {
+  opacity: 0 !important;
+  display: none !important;
+}
+
+.has-custom-cursor[data-cursor-active="true"],
+.has-custom-cursor[data-cursor-active="true"] * {
+  cursor: none;
+}
+
+.has-custom-cursor[data-cursor-active="true"] button,
+.has-custom-cursor[data-cursor-active="true"] button *,
+.has-custom-cursor[data-cursor-active="true"] a,
+.has-custom-cursor[data-cursor-active="true"] a *,
+.has-custom-cursor[data-cursor-active="true"] [role="button"],
+.has-custom-cursor[data-cursor-active="true"] [role="button"] *,
+.has-custom-cursor[data-cursor-active="true"] [role="tab"],
+.has-custom-cursor[data-cursor-active="true"] [role="tab"] *,
+.has-custom-cursor[data-cursor-active="true"] [role="link"],
+.has-custom-cursor[data-cursor-active="true"] [role="link"] *,
+.has-custom-cursor[data-cursor-active="true"] .cursor-pointer,
+.has-custom-cursor[data-cursor-active="true"] .cursor-pointer *,
+.has-custom-cursor[data-cursor-active="true"] [data-interactive="true"],
+.has-custom-cursor[data-cursor-active="true"] [data-interactive="true"] *,
+.has-custom-cursor[data-cursor-active="true"] summary,
+.has-custom-cursor[data-cursor-active="true"] summary *,
+.has-custom-cursor[data-cursor-active="true"] select {
+  cursor: pointer !important;
+}
+
+.has-custom-cursor[data-cursor-active="true"] input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]),
+.has-custom-cursor[data-cursor-active="true"] textarea {
+  cursor: text !important;
+}
+
+.has-custom-cursor[data-cursor-active="true"] input[type="button"],
+.has-custom-cursor[data-cursor-active="true"] input[type="submit"],
+.has-custom-cursor[data-cursor-active="true"] input[type="reset"],
+.has-custom-cursor[data-cursor-active="true"] input[type="checkbox"],
+.has-custom-cursor[data-cursor-active="true"] input[type="radio"],
+.has-custom-cursor[data-cursor-active="true"] label,
+.has-custom-cursor[data-cursor-active="true"] label * {
+  cursor: pointer !important;
+}
+
+
